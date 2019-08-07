@@ -9,11 +9,12 @@ $(document).ready(function () {
             if (tab.url) {
                 //saving to storage
                 saveLink(tab.url, 0);
-            }else{
+            } else {
                 alert('Please wait for the page to load!');
             }
         });
     });
+    
 });
 function getDefaultLinkArray() {
     var curLinks =
@@ -56,14 +57,36 @@ function renderAllSites() {
             curLinks = getDefaultLinkArray();
         }
 
-        var source = $('#entry-template').html();
-        var template = Handlebars.compile(source);
-
-        var html = template(getViewModel(curLinks));
-        $('#container').html(html);
+        handlebarsCompile(getViewModel(curLinks));
     });
 }
+function changeGroupSelection(id){
+    chrome.storage.sync.get(["links"], function (links) {
+        var curLinks = links.links;
 
+        if (!curLinks) {
+            curLinks = getDefaultLinkArray();
+        }
+
+        handlebarsCompile(getViewModel(curLinks,id));
+    });
+}
+function handlebarsCompile(context) {
+    var source = $('#entry-template').html();
+    var template = Handlebars.compile(source);
+
+    var html = template(context);
+    $('#container').html(html);
+    
+    //registering events after recompiling template
+    registerEvents();
+}
+function registerEvents(){
+    $('.group-item').on('click', function () {
+        var id = $(this).attr('data-id');
+        changeGroupSelection(id);
+    });
+}
 function saveLink(url, group) {
     chrome.storage.sync.get(["links"], function (links) {
         var curLinks = links.links;

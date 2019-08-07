@@ -2,6 +2,9 @@
     margin-left: 100px;
 }
 .bodyContainer{
-    width: 350px;
+    width: 355px;
     height:500px;
+}
+li.list-group-item{
+    word-break: break-all;
 }

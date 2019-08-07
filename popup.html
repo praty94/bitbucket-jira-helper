@@ -45,20 +45,29 @@
           </button>
           <div class="dropdown-menu">
             {{#each curLinks}}
-            <a class="dropdown-item d-flex justify-content-between align-items-center" href="#{{name}}">{{name}}
+            <a class="group-item dropdown-item d-flex justify-content-between align-items-center" data-id="{{id}}" href="#{{name}}">{{name}}
                 <span class="badge badge-primary badge-pill margin-left-100">{{links.length}}</span>
             </a>
             {{/each}}
           </div>
         </div>
       </div>
-      <div class="row col-md-12">
-        
-          {{#each curGroupLinks}}
-          
-            {{this}}
-          <div class="test"></div>
-          {{/each}}
+      <div class="row col-md-12">  
+          <ul class="list-group list-group-flush">
+            {{#each curGroupLinks}}
+              <li class="list-group-item">{{this}}</li>
+            {{/each}}
+          </ul> 
+          <div class="list-group">
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">List group item heading</h5>
+                  <small>3 days ago</small>
+                </div>
+                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                <small>Donec id elit non mi porta.</small>
+              </a>              
+            </div>
       </div>
     </div>
     </script>
