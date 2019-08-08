@@ -5,6 +5,6 @@
     width: 355px;
     height:500px;
 }
-li.list-group-item{
+.custom-wrap{
     word-break: break-all;
 }
