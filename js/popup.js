@@ -29,6 +29,7 @@ $(document).ready(function () {
     });
     $('#home-btn').on('click', function () {
         renderAllSites();
+        renderAlertMessage();//resetting alert message
     });
 });
 
@@ -97,6 +98,7 @@ function renderCreatePage(url) {
         var context = getViewModel(curLinks);
         context.url = url;//additionally adding url to view model
         handlebarsCompile(context, createPageTemplate);
+        renderAlertMessage();//resetting alert message 
         registerSubmit();
     });
 }
