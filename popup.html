@@ -18,16 +18,16 @@
   <div>
     <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
       <div class="row btn-group" role="group" aria-label="Button group with nested dropdown">
-        <button class="btn btn-primary"><img width="30px" src="icons/homeIcon.png"></img>
+        <button class="btn btn-primary" id="home-btn"><img width="30px" src="icons/homeIcon.png"></img>
         </button>
-        <button class="btn btn-primary"><img width="30px" src="icons/gitIcon.png"></img>
+        <button class="btn btn-primary" id="source-btn"><img width="30px" src="icons/gitIcon.png"></img>
         </button>
-        <button class="btn btn-primary"><img width="30px" src="icons/searchIcon.png"></img>
+        <button class="btn btn-primary" id="search-btn"><img width="30px" src="icons/searchIcon.png"></img>
         </button>
         <div class="btn-group" role="group">
           <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            Create
+            <img width="30px" src="icons/createIcon.png"></img>
           </button>
           <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
             <a class="dropdown-item" id="addPage" href="#">Page</a>
@@ -38,10 +38,21 @@
           aria-describedby="search bar">
       </div>
     </div>
+    <script id="alert-template" type="text/x-handlebars-template">
+      <div class="container">
+        {{#if message}}
+          <div class="alert {{#equal type to='success'}}alert-success{{else}}alert-danger{{/equal}} alert-dismissible">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{{message}}}
+            </div>
+        {{else}}       
+        {{/if}}
+      </div>
+    </script>
     <script id="create-template" type="text/x-handlebars-template">
       <div class="container">
           <h5 class="mt-1">Create New Page</h5>
-          <div class="dropdown-divider"></div>
+          <div class="dropdown-divider"></div>          
           <small>Name</small>
           <input type="text" id="page-name" class="form-control mt-1" value="{{name}}" placeholder="Enter name here.." aria-label="Site name"
           aria-describedby="site name bar">
@@ -51,7 +62,7 @@
           <small>Group</small>
           <div class="row mt-1">
               <div class="btn-group col-md-12">
-                  <button type="button" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button type="button" id="page-group" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown" data-id="{{curid}}" aria-haspopup="true" aria-expanded="false">
                     {{curGroupName}}
                   </button>
                   <div class="dropdown-menu">
@@ -64,27 +75,12 @@
                 </div>
           </div>
           <div class="text-center mt-4">
-            <button type="button" class="btn btn-primary">Create Page</button>
+            <button id="create-page-submit" type="button" class="btn btn-primary">Create Page</button>
           </div>
       </div>
     </script>
     <script id="home-template" type="text/x-handlebars-template">
-      <div class="col-md-12">
-        <div class="container">
-          {{#if successMessage}}
-            <div class="alert alert-success alert-dismissible">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{successMessage}}
-              </div>
-          {{else}}
-          {{#if errorMessage}}
-              <div class="alert alert-danger alert-dismissible">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  {{errorMessage}}
-                </div>
-          {{/if}}
-          {{/if}}
-        </div>
+      <div class="col-md-12">        
       <div class="row">
       <div class="btn-group col-md-12">
           <button type="button" class="btn btn-primary dropdown-toggle btn-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,11 +110,12 @@
               {{/each}}          
             </div>
         {{else}}
-        <div class="text-center">Nothing to show here!</div>
+        <div class="col-md-12">Nothing to show here!</div>
         {{/if}}
       </div>
     </div>
     </script>
+    <div class="row" id="alertNode"></div>
     <div class="row" id="container"></div>
   </div>
 </body>
