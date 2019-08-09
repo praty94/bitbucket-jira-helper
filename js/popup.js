@@ -123,26 +123,21 @@ function validateCreatePage(pageName, pageUrl) {
     if (!isValid(pageName)) {
         renderAlertMessage('failure', invalidPageNameMsg);
         return false;
-    } else if (!isValid(pageUrl)) {
+    } else if (!isValid(pageUrl, true)) {
         renderAlertMessage('failure', invalidPageURLMsg);
         return false;
     }
     return true;
 }
 function createNewPage(pageName, pageUrl, groupid) {
-    try {
-        var url = new URL(pageUrl);
-        var linkObj = {
-            url: pageUrl,
-            name: pageName,
-            hostname: url.hostname
-        }
-        //saving to storage
-        saveLink(linkObj, groupid);
-    } catch (error) {
-        console.error(error);
-        renderAlertMessage('failure', invalidPageURLMsg);
+    var url = new URL(pageUrl);
+    var linkObj = {
+        url: pageUrl,
+        name: pageName,
+        hostname: url.hostname
     }
+    //saving to storage
+    saveLink(linkObj, groupid);
 }
 function saveLink(linkObj, group) {
     chrome.storage.sync.get(["links"], function (links) {
@@ -209,28 +204,21 @@ function saveToStorage(data) {
     chrome.storage.sync.set(data);
 }
 
-// List View
-function listView() {
-    // Get the elements with class="column"
-    var elements = document.getElementsByClassName("column");
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].style.width = "250px";
-    }
-}
-
-// Grid View
-function gridView() {
-    // Get the elements with class="column"
-    var elements = document.getElementsByClassName("column");
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].style.width = "125px";
-    }
-}
 /* Helper Methods */
-function isValid(val) {
-    if (val && val.trim() && val.trim().length > 0)
-        return true;
-
+function isValid(val, validateURL) {
+    if (!validateURL) {
+        if (val && val.trim() && val.trim().length > 0)
+            return true;
+    } else {
+        if (val && val.trim() && val.trim().length > 0) {
+            try {
+                var url = new URL(val);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+    }
     return false;
 }
 /*handlebars helpers*/
