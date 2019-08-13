@@ -16,24 +16,27 @@
 
 <body class="container bodyContainer">
   <div>
-    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-      <div class="row btn-group" role="group" aria-label="Button group with nested dropdown">
+    <div class="mb-3">
+      <div class="row btn-group special" role="group" aria-label="Button group with nested dropdown">
         <button class="btn btn-primary" id="home-btn"><img width="30px" src="icons/homeIcon.png"></img>
         </button>
         <button class="btn btn-primary" id="source-btn"><img width="30px" src="icons/gitIcon.png"></img>
         </button>
-        <button class="btn btn-primary" id="search-btn"><img width="30px" src="icons/searchIcon.png"></img>
+        <button class="btn btn-primary" id="search-btn" type="button" data-toggle="collapse" data-target="#searchBar" aria-expanded="false">
+          <img width="30px" src="icons/searchIcon.png"></img>
         </button>
         <div class="btn-group" role="group">
-          <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+          <button id="createBtnGroup" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <img width="30px" src="icons/createIcon.png"></img>
           </button>
-          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+          <div class="dropdown-menu" aria-labelledby="createBtnGroup">
             <a class="dropdown-item" id="addPage" href="#">Page</a>
             <a class="dropdown-item" href="#">Group</a>
           </div>
         </div>
+      </div>
+      <div class="row collapse" id="searchBar">
         <input type="text" class="form-control" placeholder="Search Projects.." aria-label="Search Projects.."
           aria-describedby="search bar">
       </div>

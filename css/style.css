@@ -8,3 +8,10 @@
 .custom-wrap{
     word-break: break-all;
 }
+.btn-group.special {
+    display: flex;
+  }
+  
+  .special .btn {
+    flex: 1
+  }
